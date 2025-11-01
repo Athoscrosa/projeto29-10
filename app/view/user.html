@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+
+{% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-4">
+          <label for="nome" class="form-label">Nome</label>
+          <input type="text" class="form-control" id="nome" placeholder="Digita seu Nome" required>
+          <div class="valid-feedback">
+            Valido!!
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="sobrenome" class="form-label">Sobre Nome</label>
+          <input type="text" class="form-control" id="sobrenome" placeholder="Digita seu Sobre Nome" required>
+          <div class="valid-feedback">
+            Valido!!
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="cpf" class="form-label">CPF</label>
+          <input type="text" class="form-control" id="cpf" placeholder="Digita seu CPF" required>
+          <div class="valid-feedback">
+            CPF Valido!!
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="button" id="salvar">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block script %}
+{% include "script.html"%}
+<script src="/js/validade.js"></script>
+{% endblock %}
