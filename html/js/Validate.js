@@ -1,0 +1,28 @@
+class Validate 
+{
+    static form;
+    static SetForm(id) {
+        this.form = document.getElementById(id);
+        if (!this.form) {
+            throw new Error("Formulário não encontrado!");
+        }
+        return this;
+    }
+
+    static Validate() {
+        //    Seleciones todos os compos, input do form
+        const inputs = this.form.querySelectorAll('input, textarea, select');
+        //    percorre todos os campo do form
+        inputs.forEach(input => {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+            if (input.checkValidity()) {
+                input.classList.remove('is-valid');
+                input.classList.add('ii-invalid');                
+            }
+        });
+    }
+}
+
+export { Validate };
+
