@@ -9,42 +9,41 @@
         <div class="col-md-4">
           <label for="nome" class="form-label">Nome</label>
           <input type="text" class="form-control" id="nome" name="nome" placeholder="Digita seu Nome" required>
-          <div class="valid-feedback">
-            Valido!!
-          </div>
+          <div class="valid-feedback"></div>
         </div>
         <div class="col-md-4">
           <label for="sobrenome" class="form-label">Sobre Nome</label>
-          <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Digita seu Sobre Nome" required>
-          <div class="valid-feedback">
-          </div>
+          <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Digita seu Sobre Nome"
+            required>
+          <div class="valid-feedback"></div>
         </div>
         <div class="col-md-6">
           <label for="cpf" class="form-label">CPF</label>
           <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digita seu CPF" required>
-          <div class="valid-feedback">
-          </div>
+          <div class="valid-feedback"> </div>
         </div>
         <div class="col-md-6">
-          <label for="rg" class="form-label">rg</label>
+          <label for="rg" class="form-label">RG</label>
           <input type="text" class="form-control" id="rg" name="rg" placeholder="Digita seu RG" required>
-          <div class="valid-feedback">
-          </div>
+          <div class="valid-feedback"> </div>
         </div>
         <div class="col-md-6">
           <label for="email" class="form-label">E-mail</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Digita seu E-mail" required>
-          <div class="valid-feedback">
-          </div>
+          <div class="valid-feedback"> </div>
         </div>
         <div class="col-md-6">
-          <label for="text" class="form-label">Senha</label>
-          <input type="text" class="form-control" id="senha" placeholder="Digita sua Senha" required>
-          <div class="valid-feedback">
-          </div>
+          <label for="celular" class="form-label">Celular</label>
+          <input type="text" class="form-control" id="celular" name="celular" placeholder="Numero do Celular" required>
+          <div class="valid-feedback"> </div>
+        </div>
+        <div class="col-md-6">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="text" class="form-control" id="senha" name="senha" placeholder="Digita sua Senha" required>
+          <div class="valid-feedback"> </div>
         </div>
         <div class="col-12">
-          <button class="btn btn-primary" type="button" id="salvar">Salvar</button>
+          <button class="btn btn-primary" type="button" id="insert">Salvar</button>
         </div>
       </form>
     </div>
@@ -54,5 +53,5 @@
 {% endblock %}
 {% block script %}
 {% include "script.html"%}
-<script src="/js/validade.js"></script>
+<script defer type="module" src="/js/user.js"></script>
 {% endblock %}
