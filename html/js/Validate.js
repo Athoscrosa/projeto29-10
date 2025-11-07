@@ -1,5 +1,6 @@
 class Validate {
     static form;
+
     static SetId(id) {
         this.form = document.getElementById(id);
         if (!this.form) {
@@ -10,7 +11,7 @@ class Validate {
     static Validate() {
         //Selecionae todos os campos, input do form
         const inputs = this.form.querySelectorAll('input, textarea, select');
-        //percorre todos os campos do forma
+        //percorre todos os campos do form
         inputs.forEach(input => {
             
             input.classList.remove('is-invalid');

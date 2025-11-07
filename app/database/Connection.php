@@ -23,8 +23,8 @@ class Connection
             ];
             static::$pdo = new PDO(
                 'pgsql:host=localhost;dbname=integra_development',
-                'integra',
-                '@w906083W@',
+                'senac',
+                'senac',
                 $options
             );
             static::$pdo->exec("SET NAMES 'utf8'");
