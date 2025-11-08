@@ -22,7 +22,7 @@ class Connection
                 PDO::ATTR_STRINGIFY_FETCHES => false,
             ];
             static::$pdo = new PDO(
-                'pgsql:host=localhost;dbname=integra_development',
+                'pgsql:host=localhost;dbname=senac_db',
                 'senac',
                 'senac',
                 $options
