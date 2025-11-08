@@ -1,6 +1,6 @@
 import { Validate } from "./Validate.js";
 
-const InsertButton = document.getElementById('insert');
+const InsertButton = document.getElementById('salvar');
 
 $('#cpf').inputmask({"mask": ["999.999.999-99"]});
 
