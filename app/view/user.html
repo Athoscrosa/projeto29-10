@@ -1,42 +1,69 @@
 {% extends "main.html" %}
 
 {% block main %}
-
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <form class="row g-3 needs-validation" novalidate>
+      <form id="form" class="row g-3 needs-validation" novalidate>
         <div class="col-md-4">
           <label for="nome" class="form-label">Nome</label>
-          <input type="text" class="form-control" id="nome" placeholder="Digita seu Nome" required>
-          <div class="valid-feedback">
-            Valido!!
-          </div>
+          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe seu nome.</div>
         </div>
+
         <div class="col-md-4">
-          <label for="sobrenome" class="form-label">Sobre Nome</label>
-          <input type="text" class="form-control" id="sobrenome" placeholder="Digita seu Sobre Nome" required>
-          <div class="valid-feedback">
-            Valido!!
-          </div>
+          <label for="sobrenome" class="form-label">Sobrenome</label>
+          <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Digite seu sobrenome" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe seu sobrenome.</div>
         </div>
+
         <div class="col-md-6">
           <label for="cpf" class="form-label">CPF</label>
-          <input type="text" class="form-control" id="cpf" placeholder="Digita seu CPF" required>
-          <div class="valid-feedback">
-            CPF Valido!!
-          </div>
+          <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe um CPF válido.</div>
         </div>
+
+        <div class="col-md-6">
+          <label for="rg" class="form-label">RG</label>
+          <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite seu RG" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe seu RG.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="email" class="form-label">E-mail</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="celular" class="form-label">Celular</label>
+          <input type="text" class="form-control" id="celular" name="celular" placeholder="Número do celular" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe seu número de celular.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="senha" class="form-label">Senha</label>
+          <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+          <div class="valid-feedback">Tudo certo!</div>
+          <div class="invalid-feedback">Por favor, informe uma senha.</div>
+        </div>
+
         <div class="col-12">
-          <button class="btn btn-primary" type="button" id="salvar">Salvar</button>
+          <button class="btn btn-primary" type="button" id="insert">Salvar</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 {% endblock %}
+
 {% block script %}
 {% include "script.html"%}
-<script src="/js/validade.js"></script>
+<script defer type="module" src="/js/user.js"></script>
 {% endblock %}
