@@ -8,7 +8,7 @@ class Connection
 {
     private static $pdo = null;
 
-    public static function connection(): PDV
+    public static function connection(): PDO
     {
         try {
             if (static::$pdo) {
@@ -29,7 +29,6 @@ class Connection
             );
             static::$pdo->exec("SET NAMES 'utf8'");
             return static::$pdo;
-
         } catch (\PDOException $e) {
             throw new \PDOException("erro:" . $e->getMessage(), 1);
         }
