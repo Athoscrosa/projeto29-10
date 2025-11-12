@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <form class="row g-3 needs-validation" novalidate>
+      <form id="form" class="row g-3 needs-validation" novalidate>
 
         <div class="col-md-4">
           <label for="nome_nomefantasia" class="form-label">Nome ou Nome Fantasia</label>
@@ -96,7 +96,8 @@
         <div class="col-md-2">
           <label for="cep" class="form-label">CEP</label>
           <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
-          <div class="invalid-feedback">Informe um CEP válido.</div>
+          <div class="valid-feedback">Válido!</div>
+          <div class="invalid-feedback">Informe sua CEP.</div>
         </div>
 
         <div class="col-12">
