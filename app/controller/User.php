@@ -7,7 +7,7 @@ class User extends Base
     public function lista($request, $response)
     {
         $dadosTemplate = [
-            'titulo' => 'Página Inicial'
+            'titulo' => 'Cadastro de User'
         ];
         return $this->getTwig()
             ->render($response, $this->setView('listuser'), $dadosTemplate)
@@ -21,7 +21,7 @@ class User extends Base
         ];
         return $this->getTwig()
             ->render($response, $this->setView('user'), $dadosTemplate)
-            ->withHeader('Content-type', 'text/html')
+            ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
     }
 }

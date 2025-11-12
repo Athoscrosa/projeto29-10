@@ -2,8 +2,8 @@
 
 use app\controller\Home;
 use app\controller\User;
-use app\controller\cliente;
-use app\controller\fornecedor;
+use app\controller\Cliente;
+use app\controller\Fornecedor;
 use Slim\Routing\RouteCollectorProxy;
 
 $app->get('/', Home::class . ':home');
