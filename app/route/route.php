@@ -16,11 +16,13 @@ $app->group('/usuario', function (RouteCollectorProxy $group) {
 });
 
 $app->group('/cliente', function (RouteCollectorProxy $group) {
-    $group->get('/lista', cliente::class . ':lista'); 
-    $group->get('/cadastro', cliente::class . ':cadastro'); 
+    $group->get('/lista', Cliente::class . ':lista'); 
+    $group->get('/cadastro', Cliente::class . ':cadastro');
+    $group->post('/insert', Cliente::class . ':insert');
+    $group->post('/delete', Cliente::class . ':delete');
 });
 
 $app->group('/fornecedor', function (RouteCollectorProxy $group) {
-    $group->get('/lista', fornecedor::class . ':lista'); 
-    $group->get('/cadastro', fornecedor::class . ':cadastro'); 
+    $group->get('/lista', Fornecedor::class . ':lista'); 
+    $group->get('/cadastro', Fornecedor::class . ':cadastro'); 
 });

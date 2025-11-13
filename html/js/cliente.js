@@ -1,13 +1,14 @@
 import { Validate } from "./Validate.js";
+import { Requests } from "./Requests.js";
 
-const InsertButton = document.getElementById('insert');
+const Salvar = document.getElementById('insert');
 
 $('#cpf_cnpj').inputmask({ "mask": ["999.999.999-99", "99.999.999/9999-99"] });
 
 $('#celular').inputmask({ "mask": ["(69) 99999-9999"] });
 
-InsertButton.addEventListener('click', async () => {
-    const IsValid = Validate
-        .SetId('form')
-        .Validate();
+Salvar.addEventListener('click', async () => {
+    Validate.SetForm('form').Validate();
+    const response = await Requests.SetForm('form').Post('/cliente/insert');
+    console.log(response);
 });

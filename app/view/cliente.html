@@ -8,7 +8,7 @@
 
         <div class="col-md-4">
           <label for="nome_nomefantasia" class="form-label">Nome ou Nome Fantasia</label>
-          <input type="text" class="form-control" id="nome_nomefantasia" name="nome_nomefantasia"
+          <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia"
             placeholder="Digite seu Nome ou Nome Fantasia" required>
           <div class="valid-feedback">Válido!</div>
           <div class="invalid-feedback">Por favor, informe o nome.</div>
@@ -24,7 +24,7 @@
 
         <div class="col-md-6">
           <label for="cpf_cnpj" class="form-label">CPF ou CNPJ</label>
-          <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="Digite seu CPF ou CNPJ"
+          <input type="text" class="form-control" id="cpf_cnpj" name="cpf" placeholder="Digite seu CPF ou CNPJ"
             required>
           <div class="valid-feedback">Válido!</div>
           <div class="invalid-feedback">Informe um CPF ou CNPJ válido.</div>
@@ -38,70 +38,14 @@
         </div>
 
         <div class="col-md-4">
-          <label for="email" class="form-label">E-mail</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu E-mail" required>
-          <div class="valid-feedback">Válido!</div>
-          <div class="invalid-feedback">Digite um e-mail válido.</div>
-        </div>
-
-        <div class="col-md-4">
           <label for="celular" class="form-label">Celular</label>
           <input type="text" class="form-control" id="celular" name="celular" placeholder="Digite seu celular" required>
           <div class="valid-feedback">Válido!</div>
           <div class="invalid-feedback">Informe seu número de celular.</div>
         </div>
 
-        <div class="col-md-6">
-          <label for="cidade" class="form-label">Cidade</label>
-          <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite sua cidade" required>
-          <div class="valid-feedback">Válido!</div>
-          <div class="invalid-feedback">Informe sua cidade.</div>
-        </div>
-
-        <div class="col-md-6">
-          <label for="estado" class="form-label">Estado</label>
-          <select class="form-select" id="estado" name="estado" required>
-            <option selected disabled value="">Escolha...</option>
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-          </select>
-          <div class="invalid-feedback">Por favor, selecione um estado válido.</div>
-        </div>
-
-        <div class="col-md-2">
-          <label for="cep" class="form-label">CEP</label>
-          <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
-          <div class="valid-feedback">Válido!</div>
-          <div class="invalid-feedback">Informe sua CEP.</div>
-        </div>
-
         <div class="col-12">
-          <button class="btn btn-primary" type="button" id="insert">Salvar</button>
+          <button class="btn btn-primary" type="button" id="insert" onclick="insert">Salvar</button>
         </div>
 
       </form>
