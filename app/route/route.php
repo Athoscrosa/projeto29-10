@@ -11,19 +11,22 @@ $app->get('/', Home::class . ':home');
 $app->get('/home', Home::class . ':home');
 
 $app->group('/usuario', function (RouteCollectorProxy $group) {
-    $group->get('/lista', User::class . ':lista'); 
+    $group->get('/lista', User::class . ':lista');
     $group->get('/cadastro', User::class . ':cadastro');
+    $group->post('/insert', User::class . ':insert');
     $group->post('/listuser', User::class . ':listuser');
 });
 
 $app->group('/cliente', function (RouteCollectorProxy $group) {
-    $group->get('/lista', Cliente::class . ':lista'); 
+    $group->get('/lista', Cliente::class . ':lista');
     $group->get('/cadastro', Cliente::class . ':cadastro');
     $group->post('/insert', Cliente::class . ':insert');
     $group->post('/delete', Cliente::class . ':delete');
 });
 
 $app->group('/fornecedor', function (RouteCollectorProxy $group) {
-    $group->get('/lista', Fornecedor::class . ':lista'); 
-    $group->get('/cadastro', Fornecedor::class . ':cadastro'); 
+    $group->get('/lista', Fornecedor::class . ':lista');
+    $group->get('/cadastro', Fornecedor::class . ':cadastro');
+    $group->post('/insert', Fornecedor::class . ':insert');
+    $group->post('/delete', Fornecedor::class . ':delete');
 });

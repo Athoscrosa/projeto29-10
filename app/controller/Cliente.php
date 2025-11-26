@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use app\database\builder\InsertQuery;
+use app\database\builder\SelectQuery;
 
 class Cliente extends Base
 {
@@ -49,10 +50,11 @@ class Cliente extends Base
             ];
             $IsSave = InsertQuery::table('cliente')->save($FieldsAndValues);
             if (!$IsSave) {
-                echo 'Erro ao salvar';
+                echo json_encode(['status' => false, 'msg' => 'Erro ao salvar', 'id' => 0]);
                 die;
             }
-            echo "Salvo com sucesso!";
+
+            echo json_encode(['status' => true, 'msg' => 'Salvo com sucesso!', 'id' => 0]);
             die;
         } catch (\Throwable $th) {
             //throw $th;

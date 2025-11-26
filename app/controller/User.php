@@ -2,7 +2,7 @@
 
 namespace app\controller;
 
-//use app\database\builder\InsertQuery;
+use app\database\builder\InsertQuery;
 use app\database\builder\SelectQuery;
 
 class User extends Base
@@ -28,6 +28,40 @@ class User extends Base
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
     }
+    public function insert($request, $response)
+    {
+        try {
+            $form = $request->getParsedBody();
+            $nome = $form['nome'];
+            $sobrenome = $form['sobrenome'];
+            $cpf = $form['cpf'];
+            $rg = $form['rg'];
+            $email = $form['email'];
+            $celular = $form['celular'];
+            $senha = password_hash($form['senha'], PASSWORD_DEFAULT);
+
+            $FieldsAndValues = [
+                'nome' => $nome,
+                'sobrenome' => $sobrenome,
+                'cpf' => $cpf,
+                'rg' => $rg,
+                'email' => $email,
+                'celular' => $celular,
+                'senha' => $senha
+            ];
+            $IsSave = InsertQuery::table('usuario')->save($FieldsAndValues);
+            if (!$IsSave) {
+                echo json_encode(['status' => false, 'msg' => 'Erro ao salvar', 'id' => 0]);
+                die;
+            }
+
+            echo json_encode(['status' => true, 'msg' => 'Salvo com sucesso!', 'id' => 0]);
+            die;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
     public function listuser($request, $response)
     {
         #Captura todas a variaveis de forma mais segura VARIAVEIS POST.
@@ -40,49 +74,54 @@ class User extends Base
         $start = $form['start'];
         #Limite de registro a serem retornados do banco de dados LIMIT
         $length = $form['length'];
+        $fields = [
+            0 => 'id',
+            1 => 'nome',
+            2 => 'sobrenome',
+            3 => 'cpf',
+            4 => 'rg',
+            5 => 'email',
+            6 => 'celular',
+            7 => 'senha'
+        ];
+        #Capturamos o nome do capo a ser ordenado.
+        $orderField = $fields[$order];
         #O termo pesquisado
         $term = $form['search']['value'];
-
-
-        //$query = new InsertQuery();
-        $query = SelectQuery::select('id,nome,sobrenome')->from('usuario');
-
-        if (!is_null($term) && ($term != '')) {
-            $query->where('nome', 'ilike', $term, 'or')
-                ->where('sobrenome', 'ilike', $term, 'or')
-                ->where('cpf', 'ilike', $term, 'or')
-                ->where('rg', 'ilike', $term, 'or')
-                ->where('data_nascimento_abertura', 'ilike', $term, 'or')
-                ->where('data_adata_cadastro', 'ilike', $term, 'or')
-                ->where('data_alteracao', 'ilike', $term,);
+        $query = SelectQuery::select('id,nome,sobrenome,cpf,rg,email,celular')->from('usuario');
+        if (!is_null($term) && ($term !== '')) {
+            $query->where('usuario.nome', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.sobrenome', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.cpf', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.rg', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.email', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.celular', 'ilike', "%{$term}%", 'or')
+                ->where('usuario.senha', 'ilike', "%{$term}%");
         }
-        $users = $query->fetchAll();
+        $users = $query
+            ->order($orderField, $orderType)
+            ->limit($length, $start)
+            ->fetchAll();
         $userData = [];
         foreach ($users as $key => $value) {
             $userData[$key] = [
                 $value['id'],
                 $value['nome'],
                 $value['sobrenome'],
-                "<button class='btn btn-danger'>Excluir</button>
-            <button class='btn btn-primary'>Editar</button>"
+                $value['cpf'],
+                $value['rg'],
+                $value['email'],
+                $value['celular'],
+                $value['senha'],
+                "<button class='btn btn-warning'>Editar</button>
+                <button class='btn btn-danger'>Excluir</button>"
             ];
         }
         $data = [
             'status' => true,
-            'recordsTotal' => 2,
-            'recordsFiltered' => 2,
-            'data' => [[
-                1,
-                'Athos',
-                'cordeiro',
-                '885.312.102.59',
-                '1091532',
-                '69992679100',
-                'athos@hotmail.com',
-                '123456',
-                "<button class= 'btn btn-primary'> Editar </button>
-               <button class= 'btn btn-danger'> Excluir </button>"
-            ]]
+            'recordsTotal' => count($users),
+            'recordsFiltered' => count($users),
+            'data' => $userData
         ];
         $payload = json_encode($data);
 

@@ -3,7 +3,7 @@ import { Requests } from "./Requests.js";
 
 const salvar = document.getElementById('insert');
 
-$('#cpf').inputmask({ "mask": ["999.999.999-99"] });
+$('#cnpj').inputmask({ "mask": ["999.999.999-99", "99.999.999/9999-99"] });
 
 $('#celular').inputmask({ "mask": ["(99) 99999-9999"] });
 
@@ -19,7 +19,7 @@ salvar.addEventListener('click', async () => {
         });
         return;
     }
-    const response = await Requests.SetForm('form').Post('/usuario/insert');
+    const response = await Requests.SetForm('form').Post('/empresa/insert');
     if (!response.status) {
         Swal.fire({
             position: "center",
