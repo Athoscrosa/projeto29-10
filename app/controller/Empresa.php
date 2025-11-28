@@ -5,26 +5,26 @@ namespace app\controller;
 use app\database\builder\InsertQuery;
 use app\database\builder\SelectQuery;
 
-class User extends Base
+class Empresa extends Base
 {
 
     public function lista($request, $response)
     {
         $dadosTemplate = [
-            'titulo' => 'Lista de usuário'
+            'titulo' => 'Lista de Empresa'
         ];
         return $this->getTwig()
-            ->render($response, $this->setView('listuser'), $dadosTemplate)
+            ->render($response, $this->setView('listempresa'), $dadosTemplate)
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
     }
     public function cadastro($request, $response)
     {
         $dadosTemplate = [
-            'titulo' => 'Cadastro de usuario'
+            'titulo' => 'Cadastro de Empresa'
         ];
         return $this->getTwig()
-            ->render($response, $this->setView('user'), $dadosTemplate)
+            ->render($response, $this->setView('empresa'), $dadosTemplate)
             ->withHeader('Content-Type', 'text/html')
             ->withStatus(200);
     }
@@ -32,24 +32,26 @@ class User extends Base
     {
         try {
             $form = $request->getParsedBody();
-            $nome = $form['nome'];
-            $sobrenome = $form['sobrenome'];
-            $cpf = $form['cpf'];
-            $rg = $form['rg'];
-            $email = $form['email'];
-            $celular = $form['celular'];
-            $senha = password_hash($form['senha'], PASSWORD_DEFAULT);
+            $razao_social = $form['razao_social'];
+            $fantasia = $form['fantasia'];
+            $telefone = $form['telefone'];
+            $cnpj = $form['cnpj'];
+            $ie = $form['ie'];
+            $cep = $form['cep'];
+            $cidade = $form['cidade'];
+            $estado = $form['estado'];
 
             $FieldsAndValues = [
-                'nome' => $nome,
-                'sobrenome' => $sobrenome,
-                'cpf' => $cpf,
-                'rg' => $rg,
-                'email' => $email,
-                'celular' => $celular,
-                'senha' => $senha
+                'razao_social' => $razao_social,
+                'fantasia' => $fantasia,
+                'telefone' => $telefone,
+                'cnpj' => $cnpj,
+                'ie' => $ie,
+                'cep' => $cep,
+                'cidade' => $cidade,
+                'estado' => $estado,
             ];
-            $IsSave = InsertQuery::table('usuario')->save($FieldsAndValues);
+            $IsSave = InsertQuery::table('empresa')->save($FieldsAndValues);
             if (!$IsSave) {
                 echo json_encode(['status' => false, 'msg' => 'Erro ao salvar', 'id' => 0]);
                 die;
@@ -62,7 +64,7 @@ class User extends Base
         }
     }
 
-    public function listuser($request, $response)
+    public function listempresa($request, $response)
     {
         #Captura todas a variaveis de forma mais segura VARIAVEIS POST.
         $form = $request->getParsedBody();
@@ -76,27 +78,29 @@ class User extends Base
         $length = $form['length'];
         $fields = [
             0 => 'id',
-            1 => 'nome',
-            2 => 'sobrenome',
-            3 => 'cpf',
-            4 => 'rg',
-            5 => 'email',
-            6 => 'celular',
-            7 => 'senha'
+            1 => 'razao_social',
+            2 => 'fantasia',
+            3 => 'telefone',
+            4 => 'cnpj',
+            5 => 'ie',
+            7 => 'cep',
+            6 => 'cidade',
+            7 => 'estado',
         ];
         #Capturamos o nome do capo a ser ordenado.
         $orderField = $fields[$order];
         #O termo pesquisado
         $term = $form['search']['value'];
-        $query = SelectQuery::select('id,nome,sobrenome,cpf,rg,email,celular')->from('usuario');
+        $query = SelectQuery::select('id,razao_social,fantasia,telefone,cnpj,ie,cep,cidade,estado')->from('empresa');
         if (!is_null($term) && ($term !== '')) {
-            $query->where('usuario.nome', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.sobrenome', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.cpf', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.rg', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.email', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.celular', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.senha', 'ilike', "%{$term}%");
+            $query->where('empresa.razao_social', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.fantasia', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.telefone', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.cnpj', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.ie', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.cep', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.cidade', 'ilike', "%{$term}%", 'or')
+                ->where('empresa.estado', 'ilike', "%{$term}%");
         }
         $users = $query
             ->order($orderField, $orderType)
@@ -106,13 +110,14 @@ class User extends Base
         foreach ($users as $key => $value) {
             $userData[$key] = [
                 $value['id'],
-                $value['nome'],
-                $value['sobrenome'],
-                $value['cpf'],
-                $value['rg'],
-                $value['email'],
-                $value['celular'],
-                $value['senha'],
+                $value['razao_social'],
+                $value['fantasia'],
+                $value['telefone'],
+                $value['cnpj'],
+                $value['ie'],
+                $value['cep'],
+                $value['cidade'],
+                $value['estado'],
                 "<button class='btn btn-warning'>Editar</button>
                 <button class='btn btn-danger'>Excluir</button>"
             ];

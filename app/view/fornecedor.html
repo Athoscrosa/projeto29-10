@@ -1,14 +1,15 @@
 {% extends "main.html" %}
 
 {% block main %}
+
 <div class="container">
   <div class="row">
     <div class="col-12">
       <form id="form" class="row g-3 needs-validation" novalidate>
 
         <div class="col-md-4">
-          <label for="nome_nomefantasia" class="form-label">Nome ou Nome Fantasia</label>
-          <input type="text" class="form-control" id="nome_nomefantasia" name="nome_nomefantasia"
+          <label for="nome_fantasia" class="form-label">Nome ou Fantasia</label>
+          <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia"
             placeholder="Digite seu Nome ou Nome Fantasia" required>
           <div class="valid-feedback">Válido!</div>
           <div class="invalid-feedback">Por favor, informe o nome.</div>
@@ -45,7 +46,7 @@
         </div>
 
         <div class="col-12">
-          <button class="btn btn-primary" type="button" id="insert">Salvar</button>
+          <button class="btn btn-primary" type="button" id="insert" onclick="insert">Salvar</button>
         </div>
 
       </form>

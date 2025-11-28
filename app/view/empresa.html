@@ -1,22 +1,23 @@
 {% extends "main.html" %}
 
 {% block main %}
-
 <div class="container">
     <div class="row">
         <div class="col-12">
             <form id="form" class="row g-3 needs-validation" novalidate>
+
                 <div class="col-md-4">
                     <label for="razao_social" class="form-label">Razão Social</label>
-                    <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Digite a Razão Social"
-                        required>
+                    <input type="text" class="form-control" id="razao_social" name="razao_social"
+                        placeholder="Digite a Razão Social" required>
                     <div class="valid-feedback">Válido!</div>
                     <div class="invalid-feedback">Por favor, informe a RAZÃO SOCIAL.</div>
                 </div>
 
                 <div class="col-md-4">
                     <label for="fantasia" class="form-label">Fantasia</label>
-                    <input type="text" class="form-control" id="fantasia" name="fantasia" placeholder="Digite o Nome Fantasia" required>
+                    <input type="text" class="form-control" id="fantasia" name="fantasia"
+                        placeholder="Digite o Nome Fantasia" required>
                     <div class="valid-feedback">Válido!</div>
                     <div class="invalid-feedback">Por favor, informe a FANTASIA.</div>
                 </div>
@@ -31,7 +32,8 @@
 
                 <div class="col-md-6">
                     <label for="cnpj" class="form-label">CNPJ</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite seu CNPJ" required>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite seu CNPJ"
+                        required>
                     <div class="valid-feedback">Válido!</div>
                     <div class="invalid-feedback">Por favor, informe o CNPJ.</div>
                 </div>
@@ -41,6 +43,13 @@
                     <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite seu IE" required>
                     <div class="valid-feedback">Válido!</div>
                     <div class="invalid-feedback">Por favor, informe Inscrição Estadoal.</div>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="cep" class="form-label">CEP</label>
+                    <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
+                    <div class="valid-feedback">Válido!</div>
+                    <div class="invalid-feedback">Informe sua cidade.</div>
                 </div>
 
                 <div class="col-md-6">
@@ -86,15 +95,8 @@
                     <div class="invalid-feedback">Por favor, selecione um estado válido.</div>
                 </div>
 
-                <div class="col-md-2">
-                    <label for="cep" class="form-label">CEP</label>
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Informe sua cidade.</div>
-                </div>
-
                 <div class="col-12">
-                    <button class="btn btn-primary" type="button" id="insert">Salvar</button>
+                    <button class="btn btn-primary" type="button" id="insert" onclick="insert">Salvar</button>
                 </div>
             </form>
         </div>
