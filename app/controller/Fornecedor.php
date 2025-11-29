@@ -36,6 +36,7 @@ class Fornecedor extends Base
             $sobrenome_razaosocial = $form['sobrenome_razaosocial'];
             $cpf_cnpj = $form['cpf_cnpj'];
             $rg_ie = $form['rg_ie'];
+            $data_nascimento_abertura = $form['data_nascimento_abertura'];
             $celular = $form['celular'];
 
             $FieldsAndValues = [
@@ -43,6 +44,7 @@ class Fornecedor extends Base
                 'sobrenome_razaosocial' => $sobrenome_razaosocial,
                 'cpf_cnpj' => $cpf_cnpj,
                 'rg_ie' => $rg_ie,
+                'data_nascimento_abertura' => $data_nascimento_abertura,
                 'celular' => $celular,
             ];
             $IsSave = InsertQuery::table('fornecedor')->save($FieldsAndValues);
@@ -76,18 +78,20 @@ class Fornecedor extends Base
             2 => 'sobrenome_razaosocial',
             3 => 'cpf_cnpj',
             4 => 'rg_ie',
-            5 => 'celular',
+            5 => 'data_nascimento_abertura',
+            6 => 'celular',
         ];
         #Capturamos o nome do capo a ser ordenado.
         $orderField = $fields[$order];
         #O termo pesquisado
         $term = $form['search']['value'];
-        $query = SelectQuery::select('id,nome_fantasia,sobrenome_razaosocial,cpf_cnpj,rg_ie,celular,')->from('fornecedor');
+        $query = SelectQuery::select('id,nome_fantasia,sobrenome_razaosocial,cpf_cnpj,rg_ie,data_nascimento_abertura, celular')->from('fornecedor');
         if (!is_null($term) && ($term !== '')) {
             $query->where('fornecedor.nome_fantasia', 'ilike', "%{$term}%", 'or')
                 ->where('fornecedor.sobrenome_razaosocial', 'ilike', "%{$term}%", 'or')
                 ->where('fornecedor.cpf_cnpj', 'ilike', "%{$term}%", 'or')
                 ->where('fornecedor.rg_ie', 'ilike', "%{$term}%", 'or')
+                ->where('fornecedor.data_nascimento_abertura', 'ilike', "%{$term}%", 'or')
                 ->where('fornecedor.celular', 'ilike', "%{$term}%");
         }
         $users = $query
@@ -102,6 +106,7 @@ class Fornecedor extends Base
                 $value['sobrenome_razaosocial'],
                 $value['cpf_cnpj'],
                 $value['rg_ie'],
+                $value['data_nascimento_abertura'],
                 $value['celular'],
                 "<button class='btn btn-warning'>Editar</button>
                 <button class='btn btn-danger'>Excluir</button>"

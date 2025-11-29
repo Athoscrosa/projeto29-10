@@ -59,7 +59,7 @@ class Cliente extends Base
     }
 
     public function listcliente($request, $response)
-    {
+    {        
         #Captura todas a variaveis de forma mais segura VARIAVEIS POST.
         $form = $request->getParsedBody();
         #Qual a coluna da tabela deve ser ordenada.
@@ -82,7 +82,7 @@ class Cliente extends Base
         $orderField = $fields[$order];
         #O termo pesquisado
         $term = $form['search']['value'];
-        $query = SelectQuery::select('id,nome_fantasia,sobrenome_razaosocial,cpf_cnpj,rg_ie,celular')->from('usuario');
+        $query = SelectQuery::select('id,nome_fantasia,sobrenome_razaosocial,cpf_cnpj,rg_ie,celular')->from('cliente');
         if (!is_null($term) && ($term !== '')) {
             $query->where('cliente.nome_fantasia', 'ilike', "%{$term}%", 'or')
                 ->where('cliente.sobrenome_razaosocial', 'ilike', "%{$term}%", 'or')

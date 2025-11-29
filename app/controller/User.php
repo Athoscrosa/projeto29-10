@@ -47,7 +47,7 @@ class User extends Base
                 'rg' => $rg,
                 'email' => $email,
                 'celular' => $celular,
-                'senha' => $senha
+                'senha' => $senha,
             ];
             $IsSave = InsertQuery::table('usuario')->save($FieldsAndValues);
             if (!$IsSave) {
@@ -82,7 +82,7 @@ class User extends Base
             4 => 'rg',
             5 => 'email',
             6 => 'celular',
-            7 => 'senha'
+            7 => 'senha',
         ];
         #Capturamos o nome do capo a ser ordenado.
         $orderField = $fields[$order];
