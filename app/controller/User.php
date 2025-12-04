@@ -30,23 +30,22 @@ class User extends Base
     }
     public function insert($request, $response)
     {
+
         try {
             $form = $request->getParsedBody();
             $nome = $form['nome'];
             $sobrenome = $form['sobrenome'];
             $cpf = $form['cpf'];
             $rg = $form['rg'];
-            $email = $form['email'];
-            $celular = $form['celular'];
             $senha = password_hash($form['senha'], PASSWORD_DEFAULT);
+
+
 
             $FieldsAndValues = [
                 'nome' => $nome,
                 'sobrenome' => $sobrenome,
                 'cpf' => $cpf,
                 'rg' => $rg,
-                'email' => $email,
-                'celular' => $celular,
                 'senha' => $senha,
             ];
             $IsSave = InsertQuery::table('usuario')->save($FieldsAndValues);
@@ -54,7 +53,6 @@ class User extends Base
                 echo json_encode(['status' => false, 'msg' => 'Erro ao salvar', 'id' => 0]);
                 die;
             }
-
             echo json_encode(['status' => true, 'msg' => 'Salvo com sucesso!', 'id' => 0]);
             die;
         } catch (\Throwable $th) {
@@ -80,22 +78,18 @@ class User extends Base
             2 => 'sobrenome',
             3 => 'cpf',
             4 => 'rg',
-            5 => 'email',
-            6 => 'celular',
-            7 => 'senha',
+            5 => 'senha',
         ];
         #Capturamos o nome do capo a ser ordenado.
         $orderField = $fields[$order];
         #O termo pesquisado
         $term = $form['search']['value'];
-        $query = SelectQuery::select('id,nome,sobrenome,cpf,rg,email,celular')->from('usuario');
+        $query = SelectQuery::select('id,nome,sobrenome,cpf,rg')->from('usuario');
         if (!is_null($term) && ($term !== '')) {
             $query->where('usuario.nome', 'ilike', "%{$term}%", 'or')
                 ->where('usuario.sobrenome', 'ilike', "%{$term}%", 'or')
                 ->where('usuario.cpf', 'ilike', "%{$term}%", 'or')
                 ->where('usuario.rg', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.email', 'ilike', "%{$term}%", 'or')
-                ->where('usuario.celular', 'ilike', "%{$term}%", 'or')
                 ->where('usuario.senha', 'ilike', "%{$term}%");
         }
         $users = $query
@@ -110,8 +104,6 @@ class User extends Base
                 $value['sobrenome'],
                 $value['cpf'],
                 $value['rg'],
-                $value['email'],
-                $value['celular'],
                 $value['senha'],
                 "<button class='btn btn-warning'>Editar</button>
                 <button class='btn btn-danger'>Excluir</button>"

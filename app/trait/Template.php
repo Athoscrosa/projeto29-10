@@ -20,4 +20,12 @@ trait Template
     {
         return $name . EXT_VIEW;
     }
+     public function SendJson($response, array $data = [], int $statusCode = 200)
+    {
+        $payload = json_encode($data);
+        $response->getBody()->write($payload);
+        return $response
+        ->withHeader('Content-Type', 'application/json')
+        ->withStatus($statusCode);
+    }
 }

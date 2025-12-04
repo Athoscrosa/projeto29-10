@@ -7,12 +7,12 @@ use app\database\builder\SelectQuery;
 
 class Fornecedor extends Base
 {
-
     public function lista($request, $response)
     {
         $dadosTemplate = [
             'titulo' => 'Lista de fornecedor'
         ];
+
         return $this->getTwig()
             ->render($response, $this->setView('listfornecedor'), $dadosTemplate)
             ->withHeader('Content-Type', 'text/html')

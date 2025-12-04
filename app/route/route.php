@@ -2,6 +2,7 @@
 
 use app\controller\Home;
 use app\controller\User;
+use app\controller\Login;
 use app\controller\Cliente;
 use app\controller\Fornecedor;
 use app\controller\Empresa;
@@ -10,11 +11,18 @@ use Slim\Routing\RouteCollectorProxy;
 $app->get('/', Home::class . ':home');
 
 $app->get('/home', Home::class . ':home');
+$app->get('/login', Login::class . ':login');
+
+$app->group('/login', function (RouteCollectorProxy $group) {
+    $group->post('/precadastro', Login::class . ':precadastro');
+    $group->post('/autenticar', Login::class . ':autenticar');
+});
 
 $app->group('/usuario', function (RouteCollectorProxy $group) {
     $group->get('/lista', User::class . ':lista');
     $group->get('/cadastro', User::class . ':cadastro');
     $group->post('/insert', User::class . ':insert');
+    $group->post('/delete', User::class . ':delete');
     $group->post('/listuser', User::class . ':listuser');
 });
 
