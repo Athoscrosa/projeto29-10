@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/jaiminho2/
+cd /home/atosautomacao/
 
 rm -R vendor/
 rm -R composer.lock
@@ -119,7 +119,5 @@ create_database_if_not_exists
 create_schema_objects
 
 echo ">> Processo concluído!"
-
-
 
 service nginx reaload
