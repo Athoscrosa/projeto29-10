@@ -31,4 +31,4 @@ jobs:
             cd /home/atosautomacao
             dos2unix run.sh
             sudo bash run.sh
-            chown -R www-data:www-data .
+            chown -R www-data:www-data . 
