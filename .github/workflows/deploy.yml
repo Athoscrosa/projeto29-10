@@ -19,7 +19,7 @@ jobs:
           username: "root"
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "."
-          target: "/home/atosautomacao"
+          target: "/home/jaiminho2"
         
       - name: "Build da aplicação"
         uses: appleboy/ssh-action@v1
@@ -28,7 +28,7 @@ jobs:
           username: "root"
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /home/atosautomacao
+            cd /home/jaiminho2
             dos2unix run.sh
             sudo bash run.sh
-            chown -R www-data:www-data . 
+            chown -R www-data:www-data 
