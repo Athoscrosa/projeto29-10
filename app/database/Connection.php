@@ -22,9 +22,9 @@ class Connection
                 PDO::ATTR_STRINGIFY_FETCHES => false,
             ];
             static::$pdo = new PDO(
-                'pgsql:host=localhost;port=5432;dbname=senac_db',
-                'senac',
-                'senac',
+                'pgsql:host=localhost;port=5432;dbname=athos',
+                'athos',
+                'athos777',
                 $options
             );
             static::$pdo->exec("SET NAMES 'utf8'");

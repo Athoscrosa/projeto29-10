@@ -10,22 +10,25 @@ trait Template
     {
         try {
             $twig = Twig::create(DIR_VIEW);
-            $twig->getEnvironment()->addGlobal('EMPRESA', ' Atos Automação');
+            #Adicionamos uma varaivel de template Global acessivel de qualquer template
+            $twig->getEnvironment()->addGlobal('EMPRESA', 'Atos Automação Comercial');
             return $twig;
         } catch (\Exception $e) {
-            throw new \Exception("Restrição" . $e->getMessage());
+            throw new \Exception("Restrição: " . $e->getMessage());
         }
     }
     public function setView($name)
     {
         return $name . EXT_VIEW;
     }
-     public function SendJson($response, array $data = [], int $statusCode = 200)
+    public function SendJson($response, array $data = [], int $statusCode = 200)
     {
+        #Converte o arrya do PHP para formato JSON
         $payload = json_encode($data);
+        #Retorna uma resposta em formato JSON
         $response->getBody()->write($payload);
         return $response
-        ->withHeader('Content-Type', 'application/json')
-        ->withStatus($statusCode);
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($statusCode);
     }
 }

@@ -90,7 +90,7 @@ class Login extends Base
                 return $this->SendJson($response, ['status' => false, 'msg' => 'Por favor informe o senha', 'id' => 0], 403);
             }
             $user = SelectQuery::select()
-                ->from('vw_usuario_contatos')
+                ->from('vw_usuario_contatos')                
                 ->where('cpf', '=', $form['login'], 'or')
                 ->where('email', '=', $form['login'], 'or')
                 ->where('celular', '=', $form['login'], 'or')

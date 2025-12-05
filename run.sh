@@ -1,5 +1,8 @@
 #!/bin/bash
+rm -R vendor/
 
 composer install --no-dev --no-progress -a
 
-service nginx reaload
+sudo -u postgres psql
+
+service nginx reload
