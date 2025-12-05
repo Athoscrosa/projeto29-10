@@ -28,7 +28,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /home/atosautomacao
-            sudo dos2unix run.sh
-            chmod +x run.sh
-            sudo bash run.sh
+            sudo dos2unix start.sh
+            chmod +x start.sh
+            sudo bash start.sh
             chown -R www-data:www-data .
