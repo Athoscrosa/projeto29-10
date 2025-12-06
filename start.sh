@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     rg text,
     data_nascimento date,
     senha text,
-    ativo boolean DEFAULT false,
+    ativo boolean DEFAULT true,
     administrador boolean DEFAULT false,
     codigo_verificacao text,
     data_cadastro timestamp DEFAULT CURRENT_TIMESTAMP,
