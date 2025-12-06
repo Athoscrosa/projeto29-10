@@ -6,11 +6,13 @@ use app\controller\Login;
 use app\controller\Cliente;
 use app\controller\Fornecedor;
 use app\controller\Empresa;
+use app\middleware\Middleware;
 use Slim\Routing\RouteCollectorProxy;
 
-$app->get('/', Home::class . ':home');
+$app->get('/', Home::class . ':home')->add(Middleware::authentication());
+$app->get('/home', Home::class . ':home')->add(Middleware::authentication());
 
-$app->get('/home', Home::class . ':home');
+
 $app->get('/login', Login::class . ':login');
 
 $app->group('/login', function (RouteCollectorProxy $group) {
