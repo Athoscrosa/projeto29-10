@@ -32,6 +32,20 @@ class UpdateQuery
         $this->binds[$placeHolder] = $value;
         return $this;
     }
+
+
+     public function andwhere(string $field, string $operator, string | int | float $value, ?string $logic = null)
+    {
+        $placeHolder = '';
+        $placeHolder = $field;
+        if (str_contains($placeHolder, '.')) {
+            $placeHolder = substr($field, strpos($field, '.') + 1);
+        }
+        $this->where[] = "{$field} {$operator} : {$placeHolder} {$logic}";
+        $this->binds[$placeHolder] = $value;
+        return $this;
+    }
+
     private function createQuery(): string
     {
         if (!$this->table) {
