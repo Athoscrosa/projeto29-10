@@ -1,5 +1,6 @@
 <?php
 
+
 #Importa a classe AppFactory do Slim Framework, responsável por criar a instância principal da aplicação.
 use Slim\Factory\AppFactory;
 
@@ -23,5 +24,6 @@ $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
 require __DIR__ . '/../app/helper/settings.php';
 require __DIR__ . '/../app/route/route.php';
+// echo 'oi'; die;
 
 $app->run();

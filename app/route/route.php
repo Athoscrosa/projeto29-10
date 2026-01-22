@@ -9,12 +9,11 @@ use app\controller\Empresa;
 use app\middleware\Middleware;
 use Slim\Routing\RouteCollectorProxy;
 
-$app->get('/', Home::class . ':home')->add(Middleware::authentication());
-$app->get('/home', Home::class . ':home')->add(Middleware::authentication());
-
+$app->get('/', Home::class . ':home');
 
 $app->get('/login', Login::class . ':login');
-
+$app->get('/home', Home::class . ':home')->add(Middleware::authentication());
+/*
 $app->group('/login', function (RouteCollectorProxy $group) {
     $group->post('/precadastro', Login::class . ':precadastro');
     $group->post('/autenticar', Login::class . ':autenticar');
@@ -52,3 +51,4 @@ $app->group('/empresa', function (RouteCollectorProxy $group) {
     $group->post('/delete', Empresa::class . ':delete');
     $group->post('/listempresa', empresa::class . ':listempresa');
 });
+*/
