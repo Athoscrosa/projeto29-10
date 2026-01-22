@@ -1,111 +1,65 @@
 {% extends "main.html" %}
 
 {% block main %}
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <form id="form" class="row g-3 needs-validation" novalidate>
-
-                <div class="col-md-4">
-                    <label for="razao_social" class="form-label">Razão Social</label>
-                    <input type="text" class="form-control" id="razao_social" name="razao_social"
-                        placeholder="Digite a Razão Social" required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Por favor, informe a RAZÃO SOCIAL.</div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="fantasia" class="form-label">Fantasia</label>
-                    <input type="text" class="form-control" id="fantasia" name="fantasia"
-                        placeholder="Digite o Nome Fantasia" required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Por favor, informe a FANTASIA.</div>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="telefone" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="telefone" name="telefone"
-                        placeholder="Digite o Telefefone" required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Informe seu número de telefone.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="cnpj" class="form-label">CNPJ</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite seu CNPJ"
-                        required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Por favor, informe o CNPJ.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="ie" class="form-label">IE</label>
-                    <input type="text" class="form-control" id="ie" name="ie" placeholder="Digite seu IE" required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Por favor, informe Inscrição Estadoal.</div>
-                </div>
-
-                <div class="col-md-2">
-                    <label for="cep" class="form-label">CEP</label>
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="00000-000">
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Informe sua cidade.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Digite sua cidade"
-                        required>
-                    <div class="valid-feedback">Válido!</div>
-                    <div class="invalid-feedback">Por favor, informe a Cidade.</div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="estado" class="form-label">Estado</label>
-                    <select class="form-select" id="estado" name="estado" required>
-                        <option selected disabled value="">Escolha...</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
-                    </select>
-                    <div class="invalid-feedback">Por favor, selecione um estado válido.</div>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary" type="button" id="insert" onclick="insert">Salvar</button>
-                </div>
-            </form>
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="mb-0">{{titulo}}</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item" aria-current="page"><a href="/home">Início</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="/empresa/lista">Pesquisa de empresa</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Cadastro e edição</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="form">
+                    <input type="" id="acao" name="acao" value="{{acao}}">
+                    <input type="" id="id" name="id" value="{{id}}">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="/empresa/lista" class="btn btn-warning">Voltar</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label for="nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia"
+                                        placeholder="Informe seu nome" value="{{empresa.nome_fantasia}}" autofocus>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label for="sobrenome" class="form-label">Sobrenome</label>
+                                    <input type="text" class="form-control" id="sobrenome_razao" name="sobrenome_razao"
+                                        placeholder="Informe seu sobrenome" value="{{empresa.sobrenome_razao}}">
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label for="rg" class="form-label">RG</label>
+                                    <input type="text" class="form-control" id="rg_ie" name="rg_ie"
+                                        placeholder="Informe seu RG" value="{{empresa.rg_ie}}">
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label for="cpf" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj"
+                                        placeholder="Informe seu CPF" value="{{empresa.cpf_cnpj}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" id="salvar" class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
-
 {% block script %}
-{% include "script.html" %}
+{% include 'script.html' %}
 <script defer type="module" src="/js/empresa.js"></script>
 {% endblock %}

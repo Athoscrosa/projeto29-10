@@ -4,6 +4,8 @@ namespace app\controller;
 
 use app\database\builder\InsertQuery;
 use app\database\builder\SelectQuery;
+use app\database\builder\DeleteQuery;
+use app\database\builder\UpdateQuery;
 
 class Empresa extends Base
 {
@@ -11,7 +13,7 @@ class Empresa extends Base
     public function lista($request, $response)
     {
         $dadosTemplate = [
-            'titulo' => 'Lista de Empresa'
+            'titulo' => 'Lista de Empresas'
         ];
         return $this->getTwig()
             ->render($response, $this->setView('listempresa'), $dadosTemplate)
@@ -20,113 +22,134 @@ class Empresa extends Base
     }
     public function cadastro($request, $response)
     {
-        $dadosTemplate = [
-            'titulo' => 'Cadastro de Empresa'
-        ];
-        return $this->getTwig()
-            ->render($response, $this->setView('empresa'), $dadosTemplate)
-            ->withHeader('Content-Type', 'text/html')
-            ->withStatus(200);
+        try {
+            $dadosTemplate = [
+                'acao' => 'c',
+                'titulo' => 'Cadastro'
+            ];
+            return $this->getTwig()
+                ->render($response, $this->setView('empresa'), $dadosTemplate)
+                ->withHeader('Content-Type', 'text/html')
+                ->withStatus(200);
+        } catch (\Exception $e) {
+            var_dump($e);
+        }
     }
     public function insert($request, $response)
     {
         try {
             $form = $request->getParsedBody();
-            $razao_social = $form['razao_social'];
-            $fantasia = $form['fantasia'];
-            $telefone = $form['telefone'];
-            $cnpj = $form['cnpj'];
-            $ie = $form['ie'];
-            $cep = $form['cep'];
-            $cidade = $form['cidade'];
-            $estado = $form['estado'];
-
-            $FieldsAndValues = [
-                'razao_social' => $razao_social,
-                'fantasia' => $fantasia,
-                'telefone' => $telefone,
-                'cnpj' => $cnpj,
-                'ie' => $ie,
-                'cep' => $cep,
-                'cidade' => $cidade,
-                'estado' => $estado,
+            $FieldAndValues = [
+                'nome_fantasia' => $form['nome_fantasia'],
+                'sobrenome_razao' => $form['sobrenome_razao'],
+                'cpf_cnpj' => $form['cpf_cnpj'],
+                'rg_ie' => $form['rg_ie']
             ];
-            $IsSave = InsertQuery::table('empresa')->save($FieldsAndValues);
+            $IsSave = InsertQuery::table('empresa')->save($FieldAndValues);
             if (!$IsSave) {
-                echo json_encode(['status' => false, 'msg' => 'Erro ao salvar', 'id' => 0]);
-                die;
+                return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $IsSave, 'id' => 0], 403);
             }
-
-            echo json_encode(['status' => true, 'msg' => 'Salvo com sucesso!', 'id' => 0]);
-            die;
-        } catch (\Throwable $th) {
-            //throw $th;
+            $empresa = SelectQuery::select('id')->from('empresa')->order('id', 'desc')->fetch();
+            return $this->SendJson($response, ['status' => true, 'msg' => 'Salvo com sucesso', 'id' => $empresa['id']], 201);
+        } catch (\Exception $e) {
+            return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $e->getMessage(), 'id' => 0], 500);
         }
     }
-
-    public function listempresa($request, $response)
+    public function alterar($request, $response, $args)
     {
+        try {
+            $id = $args['id'];
+            $empresa = SelectQuery::select()->from('empresa')->where('id', '=', $id)->fetch();
+            $dadosTemplate = [
+                'acao' => 'e',
+                'id' => $id,
+                'titulo' => 'Cadastro e edição',
+                'empresa' => $empresa
+            ];
+            return $this->getTwig()
+                ->render($response, $this->setView('empresa'), $dadosTemplate)
+                ->withHeader('Content-Type', 'text/html')
+                ->withStatus(200);
+        } catch (\Exception $e) {
+            var_dump($e);
+        }
+    }
+    public function delete($request, $response)
+    {
+        try {
+            $id = $_POST['id'];
+            $IsDelete = DeleteQuery::table('empresa')
+                ->where('id', '=', $id)
+                ->delete();
+
+            if (!$IsDelete) {
+                echo 'Erro ao deletar';
+                die;
+            }
+            echo "Deletado com sucesso!";
+            die;
+        } catch (\Throwable $th) {
+            echo "Erro: " . $th->getMessage();
+            die;
+        }
+    }
+        public function listempresa($request, $response){
         #Captura todas a variaveis de forma mais segura VARIAVEIS POST.
         $form = $request->getParsedBody();
         #Qual a coluna da tabela deve ser ordenada.
         $order = $form['order'][0]['column'];
         #Tipo de ordenação
         $orderType = $form['order'][0]['dir'];
-        #Em qual registro se inicia o retorno dos registro, OFFSET
+        #Em qual registro se inicia o retorno dos registros, OFFSET
         $start = $form['start'];
         #Limite de registro a serem retornados do banco de dados LIMIT
         $length = $form['length'];
-        $fields = [
-            0 => 'id',
-            1 => 'razao_social',
-            2 => 'fantasia',
-            3 => 'telefone',
-            4 => 'cnpj',
-            5 => 'ie',
-            7 => 'cep',
-            6 => 'cidade',
-            7 => 'estado',
+        $fields= [
+          0 => 'id',  
+          1 => 'nome_fantasia',  
+          2 => 'sobrenome_razao',  
+          3 => 'cpf_cnpj',  
+          4 => 'rg_ie',
+          5 => 'data_nascimento_abertura',
         ];
-        #Capturamos o nome do capo a ser ordenado.
+        #Capturamos o nome do campo a ser odernado.
         $orderField = $fields[$order];
         #O termo pesquisado
-        $term = $form['search']['value'];
-        $query = SelectQuery::select('id,razao_social,fantasia,telefone,cnpj,ie,cep,cidade,estado')->from('empresa');
+        $term = $form ['search']['value'];
+        $query = SelectQuery::select('id,nome_fantasia,sobrenome_razao,cpf_cnpj,rg_ie,data_nascimento_abertura')->from('empresa');
         if (!is_null($term) && ($term !== '')) {
-            $query->where('empresa.razao_social', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.fantasia', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.telefone', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.cnpj', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.ie', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.cep', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.cidade', 'ilike', "%{$term}%", 'or')
-                ->where('empresa.estado', 'ilike', "%{$term}%");
+            $query->where('nome_fantasia', 'ilike', "%{$term}%", 'or')
+            ->where('sobrenome_razao', 'ilike', "%{$term}%", 'or')
+            ->where('cpf_cnpj', 'ilike', "%{$term}%", 'or')
+            ->where('rg_ie', 'ilike', "%{$term}%")
+            ->where('data_nascimento_abertura', 'ilike', "%{$term}%");
         }
-        $users = $query
-            ->order($orderField, $orderType)
-            ->limit($length, $start)
-            ->fetchAll();
-        $userData = [];
-        foreach ($users as $key => $value) {
-            $userData[$key] = [
+        $empresa = $query
+        ->order($orderField, $orderType)
+        ->limit($length, $start)
+        ->fetchAll();
+        $empresaData = [];
+        foreach($empresa as $key => $value) {
+            $empresaData[$key] = [
                 $value['id'],
-                $value['razao_social'],
-                $value['fantasia'],
-                $value['telefone'],
-                $value['cnpj'],
-                $value['ie'],
-                $value['cep'],
-                $value['cidade'],
-                $value['estado'],
-                "<button class='btn btn-warning'>Editar</button>
-                <button class='btn btn-danger'>Excluir</button>"
+                $value['nome_fantasia'],
+                $value['sobrenome_razao'],
+                $value['cpf_cnpj'],
+                $value['rg_ie'],
+                $value['data_nascimento_abertura'],
+                "<a href=\"/empresa/alterar/" . $value['id'] . "\" class=\"btn btn-warning\">Alterar</a>
+
+                <button type='button'  onclick='Delete(" . $value['id'] . ");' class='btn btn-danger'>
+                 <i class=\"bi bi-trash-fill\"></i>
+                 Excluir
+                 </button>"
             ];
         }
         $data = [
             'status' => true,
-            'recordsTotal' => count($users),
-            'recordsFiltered' => count($users),
-            'data' => $userData
+            'recordsTotal' => count($empresa),
+            'recordsFiltered' => count($empresa),
+            'data' => $empresaData
         ];
         $payload = json_encode($data);
 
@@ -136,4 +159,28 @@ class Empresa extends Base
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
     }
+    public function update($request, $response)
+    {
+        try {
+            $form = $request->getParsedBody();
+            $id = $form['id'];
+            if (is_null($id) || empty($id)) {
+                return $this->SendJson($response, ['status' => false, 'msg' => 'Por favor informe o ID', 'id' => 0], 500);
+            }
+            $FieldAndValues = [
+                'nome_fantasia' => $form['nome_fantasia'],
+                'sobrenome_razao' => $form['sobrenome_razao'],
+                'cpf_cnpj' => $form['cpf_cnpj'],
+                'rg_ie' => $form['rg_ie']
+            ];
+            $IsUpdate = UpdateQuery::table('empresa')->set($FieldAndValues)->where('id', '=', $id)->update();
+            if (!$IsUpdate) {
+                return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $IsUpdate, 'id' => 0], 403);
+            }
+            return $this->SendJson($response, ['status' => true, 'msg' => 'Atualizado com sucesso!', 'id' => $id]);
+        } catch (\Exception $e) {
+            return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $e->getMessage(), 'id' => 0], 500);
+        }
+    }
 }
+ 

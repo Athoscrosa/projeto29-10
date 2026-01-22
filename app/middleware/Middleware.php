@@ -2,6 +2,8 @@
 
 namespace app\middleware;
 
+use app\database\builder\SelectQuery;
+
 class Middleware
 {
     public static function authentication()
@@ -25,10 +27,10 @@ class Middleware
                     return $response->withHeader('Location', '/login')->withStatus(302);
                 }
                 # Se a página solicitada é a de login
-                if ($pagina === '/login') {
+                    if ($pagina === '/login') {
 
                     if (!$usuarioLogado) {
-                        return $response->withHeader('Location', '/')->withStatus(302);
+                        return $response->withHeader('Location', '/' )->withStatus(302);
                     }
                 }
                 if (empty($_SESSION['usuario']['ativo']) or !$_SESSION['usuario']['ativo']) {
